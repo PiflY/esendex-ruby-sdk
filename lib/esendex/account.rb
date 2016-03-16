@@ -29,8 +29,8 @@ module Esendex
       send_messages [Message.new(args[:to], args[:body], args[:from])]
     end
     
-    def send_messages(messages)
-      batch_submission = MessageBatchSubmission.new(@reference, messages)
+    def send_messages(messages, send_at=nil)
+      batch_submission = MessageBatchSubmission.new(@reference, messages, send_at)
       response = api_connection.post("/v1.0/messagedispatcher", batch_submission.to_s)
       DispatcherResult.from_xml response.body
     end
