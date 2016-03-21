@@ -34,7 +34,7 @@ module Esendex
 
       if @send_at.present?
         send_at_node = Nokogiri::XML::Node.new 'sendat', doc
-        send_at_node.content = @send_at.strftime("%Y-%m-%dT%H:%M:%S")
+        send_at_node.content = @send_at.strftime("%Y-%m-%dT%H:%M:%S%Z")
         doc.root.add_child(send_at_node)
       end
       
