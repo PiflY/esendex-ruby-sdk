@@ -40,5 +40,10 @@ module Esendex
         .new(api_connection)
         .get_messages(args.merge(account_reference: reference))
     end
+
+    def message_information(message)
+      response = api_connection.post("/v1.0/messages/information", message.to_s)
+      MessageInformationResult.from_xml response.body
+    end
   end
 end
