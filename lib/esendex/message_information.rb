@@ -9,10 +9,11 @@ require 'nokogiri'
 
 module Esendex
   class MessageInformation
-    attr_accessor :account_reference, :body
+    attr_accessor :account_reference, :body, :character_set
     
-    def initialize(body)
+    def initialize(body, character_set="Auto")
       @body = body
+      @character_set = character_set
     end
     
     def xml_node
@@ -26,7 +27,7 @@ module Esendex
       subdoc << body
 
       characterset = Nokogiri::XML::Node.new 'characterset', doc
-      characterset.content = "Auto"
+      characterset.content = self.character_set
 
       subdoc << characterset
 
